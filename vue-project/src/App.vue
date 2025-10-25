@@ -2,9 +2,7 @@
 import AppHeader from "@/components/AppHeader.vue";
 
 export default {
-  components: {
-    AppHeader,
-  },
+  components: { AppHeader },
 };
 </script>
 
@@ -19,7 +17,7 @@ export default {
 
 <style>
 .page {
-  max-width: 400px;
+  max-width: 600px;
   margin: auto;
 }
 </style>

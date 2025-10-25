@@ -25,12 +25,12 @@ class ContactService {
     return (await this.api.put(`/${id}`, data)).data;
   }
 
-  // Xóa liên hệ theo ID
+  // Xóa 1 liên hệ theo ID
   async delete(id) {
     return (await this.api.delete(`/${id}`)).data;
   }
 
-  // Xóa toàn bộ liên hệ (tùy chọn)
+  // 🟢 Xóa toàn bộ liên hệ
   async deleteAll() {
     return (await this.api.delete("/")).data;
   }

@@ -2,7 +2,6 @@
   <div v-if="contact" class="page">
     <h4>Hiệu chỉnh Liên hệ</h4>
 
-    <!-- Form nhập liệu -->
     <ContactForm
       :contact="contact"
       @submit:contact="updateContact"
@@ -22,68 +21,49 @@ import ContactForm from "@/components/ContactForm.vue";
 import ContactService from "@/services/contact.service";
 
 export default {
-  components: {
-    ContactForm,
-  },
-
-  props: {
-    id: { type: String, required: true },
-  },
-
+  components: { ContactForm },
+  props: { id: { type: String, required: true } },
   data() {
     return {
       contact: null,
       message: "",
     };
   },
-
   methods: {
-    // 🟩 Lấy thông tin liên hệ từ server theo id
     async getContact(id) {
       try {
         this.contact = await ContactService.get(id);
       } catch (error) {
-        console.error(error);
-        // Nếu lỗi (liên hệ không tồn tại), chuyển đến trang NotFound
+        console.error("Lỗi khi tải dữ liệu:", error);
         this.$router.push({
           name: "notfound",
-          params: {
-            pathMatch: this.$route.path.split("/").slice(1),
-          },
-          query: this.$route.query,
-          hash: this.$route.hash,
+          params: { pathMatch: this.$route.path.split("/").slice(1) },
         });
       }
     },
-
-    // 🟩 Cập nhật thông tin liên hệ
     async updateContact(data) {
       try {
         await ContactService.update(this.contact._id, data);
-        alert("Liên hệ được cập nhật thành công!");
+        alert("Cập nhật thành công!");
         this.$router.push({ name: "contactbook" });
       } catch (error) {
-        console.error(error);
+        console.error("Lỗi cập nhật:", error);
       }
     },
-
-    // 🟩 Xóa liên hệ
     async deleteContact() {
-      if (confirm("Bạn muốn xóa Liên hệ này?")) {
+      if (confirm("Bạn muốn xóa liên hệ này?")) {
         try {
           await ContactService.delete(this.contact._id);
-          alert("Liên hệ đã bị xóa!");
+          alert("Đã xóa thành công!");
           this.$router.push({ name: "contactbook" });
         } catch (error) {
-          console.error(error);
+          console.error("Lỗi xóa:", error);
         }
       }
     },
   },
-
   created() {
     this.getContact(this.id);
-    this.message = "";
   },
 };
 </script>

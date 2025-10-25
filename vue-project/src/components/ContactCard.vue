@@ -19,12 +19,13 @@ export default {
     </div>
 
     <div class="mt-3 text-end">
-      <button
+      <!-- Nút Sửa -->
+      <router-link
+        :to="{ name: 'contact.edit', params: { id: contact._id } }"
         class="btn btn-sm btn-warning"
-        @click="$router.push({ name: 'contact.edit', params: { id: contact._id } })"
       >
-        <i class="fas fa-edit"></i> Sửa
-      </button>
+        <i class="fas fa-edit"></i> Hiệu chỉnh
+      </router-link>
     </div>
   </div>
 </template>
